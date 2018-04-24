@@ -30,12 +30,8 @@
             <div class="card center">
  
                     <div class="card-content">
-                            <div class="card-action">
-                                <a class="btn-floating btn-large waves-effect waves-light red" onclick="startWebcam();"><i class="material-icons">camera</i></a>
-                                <a class="btn-floating btn-large waves-effect waves-light red" onclick="snapshot();"><i class="material-icons">verified_user</i></a>
-                            </div>
                             <div class="input-field col s6">
-                                    <input placeholder="Enter Name" type="text" class="validate" id="ip">
+                                    <input placeholder="Enter Name" type="text" class="validate" id="ip" onkeypress="takeSnapshot()">
                             </div>
                             <p>
                                 <video onclick="snapshot(this);" width=300 height=300 id="video" controls autoplay></video>
@@ -47,34 +43,10 @@
                   </div>
       </div>
 
-  <button name="button" id="button">save name</button>
   </body>
   <script type="text/javascript">
 
-  $("button").click(function(){
-          var thedata = [{
-        "ticketName": name,
-        "ticketDesc": "new april 24 very new test description"
-    }]
-      var update_name = {
-          "async": true,
-          "crossDomain": true,
-          "url": "http://cts-digital-ipm.cloudhub.io/api/v1/salesforce/ticket",
-          "method": "POST",
-          "headers": {
-              "client_id" : "bfb6df74a3f4486db9dbd51bf5764f90",
-              "client_secret" : "aeAbCaD530504f07B2F8d50c7EA9EAC9",
-              "Content-Type" : "application/json"
-          },
-          "processData": false,
-          "data": thedata
-      }
-    var name = document.getElementById("ip").value;
-    console.log(name + "name of the person");
-    $.ajax(update_name).done(function (response) {
-      console.log(response);
-    });
-  });
+  
 
     //--------------------
     // GET USER MEDIA CODE
@@ -91,8 +63,14 @@
       <%if(open){%>
         console.log("hello");
         startWebcam();
+        if(document.getElementById('ip').value != NULL){
+          snapshot();
+        }
       <%}%>
+
+    function takeSnapshot(){
       setTimeout(function(){snapshot();console.log("hello world");},3000);
+    }
 
 
     function startWebcam() {
