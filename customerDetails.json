@@ -1,0 +1,51 @@
+[
+	{
+		"name":"naman",
+		"oftenBuy":"Sticker",
+		"lastBuy":"DialogFlow sticker",
+		"generalIntrest":"electronics",
+		"deals":"arduino, routers, iphone"
+	},
+	{
+		"name":"dhanush",
+		"oftenBuy":"Shoe",
+		"lastBuy":"Puma Shoes",
+		"generalIntrest":"games",
+		"deals":" Gaming Laptops, camera, fruits"
+	},
+	{
+		"name":"sanjana",
+		"oftenBuy":"Clothes",
+		"lastBuy":"Gown",
+		"generalIntrest":"Fashion",
+		"deals":"arduino, routers, iphone,"
+	},
+	{
+		"name":"shraddha",
+		"oftenBuy":"Accessories",
+		"lastBuy":"Earring",
+		"generalIntrest":"dresses",
+		"deals":". arduino, routers, iphone,"
+	},
+	{
+		"name":"rajesh balaji",
+		"oftenBuy":"Books",
+		"lastBuy":"macbook",
+		"generalIntrest":"Gadgets",
+		"deals":". macbook, books"
+	},
+	{
+		"name":"uri sarid",
+		"oftenBuy":"electronics",
+		"lastBuy":"rolex",
+		"generalIntrest":"books and gadgets",
+		"deals":". watches, apparels"
+	},
+	{
+		"name":"brent",
+		"oftenBuy":"electronics",
+		"lastBuy":"rolex",
+		"generalIntrest":"books and gadgets",
+		"deals":". watches, apparels"
+	}
+]

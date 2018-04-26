@@ -16,7 +16,7 @@
     <script type="text/javascript" src="/js/materialize.min.js"></script>
     <nav>
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo center">Facial Recognition</a>
+          <a href="#" class="brand-logo center">Intrusion Detection System</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="/">Train</a></li>
             <li class="active"><a href="#">Test</a></li>
@@ -43,6 +43,8 @@
     <button name="button" id="button">save name</button>
   </body>
   <script type="text/javascript">
+
+  var namedetected;
 
   $("button").click(function(){
       var settings = {
@@ -139,10 +141,58 @@
         }
         $.ajax(settings).done(function (response) {
             var m = response;
+            var authenticatedusers = ['naman','sanjana'];
             console.log(JSON.stringify(m).indexOf("success"));
             if(JSON.stringify(m).indexOf("success") > -1) {
                 Materialize.toast('User Identfied. Name : ' +JSON.stringify(m.images[0].candidates[0].subject_id), 6000);
                 console.log(m.images[0].candidates[0].subject_id);
+                namedetected = m.images[0].candidates[0].subject_id;
+                var ticketContent;
+                var flag = 0;
+                for(var i=0;i<authenticatedusers.length;i++){
+                    if(namedetected == authenticatedusers[i]){
+                        flag = 1;
+                        ticketContent = namedetected + " was here at ";
+                        console.log(ticketContent);
+                    }
+                }
+                if(flag == 0){
+                    ticketContent = namedetected + " was here at ";
+                    console.log(ticketContent);
+                }
+                var currentDate = new Date();
+                    var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://cts-digital-ipm.cloudhub.io/api/v1/salesforce/ticket",
+                    "method": "POST",
+                    "headers": 
+                    {
+                        "client_id": "bfb6df74a3f4486db9dbd51bf5764f90",
+                        "client_secret": "aeAbCaD530504f07B2F8d50c7EA9EAC9",
+                        "content-type": "application/json",
+                        "cache-control": "no-cache"
+                    },
+                    "processData": false,
+                    "data": "[{\n        \"ticketName\": \"Intruder\",\n        \"ticketDesc\": \""+ticketContent+" "+currentDate+"\"\n    }]"
+                }
+
+                $.ajax(settings).done(function (response) {
+                        console.log(response.ticketNumber);
+                        var data = {"name":namedetected}
+                    $.ajax({
+                        url: '/userInterest',
+                        type : 'GET',
+                        data : data,
+                        success : function(result) {
+                            console.log("successfull");
+                            window.location = "/newticket";
+                        },
+                        error: function(xhr, resp, text) {
+                        }
+                    })
+                console.log(response.ticketNumber);
+                });
             }
             else{
                 Materialize.toast('User Not identified, Generating ticket');
@@ -160,11 +210,12 @@
                             "cache-control": "no-cache"
                         },
                         "processData": false,
-                        "data": "[{\n        \"ticketName\": \"Intruder\",\n        \"ticketDesc\": \""+currentDate+"\"\n    }]"
+                        "data": "[{\n        \"ticketName\": \"Intruder\",\n        \"ticketDesc\": \""+"New prospect has entered at "+currentDate+"\"\n    }]"
                     }
 
                     $.ajax(settings).done(function (response) {
                     console.log(response.ticketNumber);
+ 
                     });
             }
         });
